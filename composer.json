@@ -1,0 +1,26 @@
+{
+    "name": "maddoger/yii2-cms-user",
+    "type": "yii2-extension",
+    "description": "User module for Yii2 CMS.",
+    "authors": [
+        {
+            "name": "Vitaliy Syrchikov",
+            "email": "maddoger@gmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*",
+        "yiisoft/yii2-bootstrap": "*",
+        "maddoger/yii2-select2": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "maddoger\\user\\": ""
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}
