@@ -25,6 +25,9 @@ use yii\web\IdentityInterface;
  * @property integer $created_at
  * @property integer $updated_at
  *
+ * @property string $name @readonly
+ * @property string $avatar @readonly
+ *
  * @property UserProfile $profile
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -93,7 +96,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             [['username', 'email'], 'required'],
-            [['password', 'oauth_client', 'oauth_client_user_id'], 'string'],
+            [['password'], 'string'],
             [['username'], 'string', 'min' => 3],
             [['email'], 'email'],
             
@@ -105,7 +108,6 @@ class User extends ActiveRecord implements IdentityInterface
 
             //Create
             [['username', 'email', 'password_hash'], 'required', 'on' => 'create'],
-
 
             [['rbacRoles'], 'safe'],
         ];
@@ -130,6 +132,12 @@ class User extends ActiveRecord implements IdentityInterface
             'last_visit_at' => Yii::t('maddoger/user', 'Last visit at'),
             'created_at' => Yii::t('maddoger/user', 'Created at'),
             'updated_at' => Yii::t('maddoger/user', 'Updated at'),
+
+            'name' => Yii::t('maddoger/user', 'Name'),
+            'avatar' => Yii::t('maddoger/user', 'Avatar'),
+            'statusDescription' => Yii::t('maddoger/user', 'Status'),
+            'roleDescription' => Yii::t('maddoger/user', 'Role'),
+            'rbacRoles' => Yii::t('maddoger/user', 'Roles'),
         ];
     }
 
@@ -186,6 +194,8 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasOne(UserProfile::className(), ['user_id' => 'id']);
     }
 
+    //Admin panel
+
     /**
      * @return string
      */
@@ -195,6 +205,19 @@ class User extends ActiveRecord implements IdentityInterface
             return $this->profile->getName() ?: $this->username;
         } else {
             return $this->username;
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function getAvatar()
+    {
+        if ($this->profile) {
+            //Avatar resizing?
+            return $this->profile->avatar;
+        } else {
+            return null;
         }
     }
 
@@ -348,12 +371,17 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findByUsernameOrEmail($username, $checkStatus = true)
     {
-        //TODO: Implement checkStatus
-        return static::findOne([
-            'and',
-            ['or', 'username' => $username, 'email' => $username],
-            'status' => self::STATUS_ACTIVE
-        ]);
+        return static::findOne(
+            $checkStatus ?
+            [
+                'and',
+                ['or', 'username' => $username, 'email' => $username],
+                'status' => self::STATUS_ACTIVE
+            ] :
+            [
+                ['or', 'username' => $username, 'email' => $username],
+            ]
+        );
     }
 
     /**

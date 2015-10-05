@@ -38,12 +38,12 @@ class Role extends Model
     public function attributeLabels()
     {
         return [
-            'name' => Yii::t('maddoger/admin', 'Role identifier'),
-            'description' => Yii::t('maddoger/admin', 'Description'),
-            'rule_name' => Yii::t('maddoger/admin', 'Rule name'),
-            'data' => Yii::t('maddoger/admin', 'Data'),
-            'childRoles' => Yii::t('maddoger/admin', 'Child roles'),
-            'childPermissions' => Yii::t('maddoger/admin', 'Child permissions'),
+            'name' => Yii::t('maddoger/user', 'Role identifier'),
+            'description' => Yii::t('maddoger/user', 'Description'),
+            'rule_name' => Yii::t('maddoger/user', 'Rule name'),
+            'data' => Yii::t('maddoger/user', 'Data'),
+            'childRoles' => Yii::t('maddoger/user', 'Child roles'),
+            'childPermissions' => Yii::t('maddoger/user', 'Child permissions'),
         ];
     }
 

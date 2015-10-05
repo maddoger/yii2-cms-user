@@ -2,6 +2,8 @@
 
 namespace maddoger\user\common\models;
 
+use maddoger\filebehavior\FileBehavior;
+use maddoger\user\backend\Module;
 use Yii;
 use yii\db\ActiveRecord;
 
@@ -34,7 +36,24 @@ class UserProfile extends ActiveRecord
 
     public function behaviors()
     {
-        return [];
+        /** @var \maddoger\user\backend\Module $userModule */
+        $userModule = Module::getInstance();
+        if (!$userModule) {
+            return [];
+        }
+
+        return [
+            'avatarBehavior' => [
+                'class' => FileBehavior::className(),
+                'basePath' => $userModule->avatarsUploadPath,
+                'baseUrl' => $userModule->avatarsUploadUrl,
+                'attribute' => 'avatar',
+                'deleteAttribute' => 'delete_avatar',
+                'fileName' => function ($model, $file, $index){
+                    return $model->user_id.'.'.$file->getExtension();
+                }
+            ]
+        ];
     }
 
     /**
@@ -44,7 +63,10 @@ class UserProfile extends ActiveRecord
     {
         return [
             [['gender'], 'integer'],
-            [['first_name', 'last_name', 'patronymic', 'avatar'], 'string', 'max' => 255]
+            [['first_name', 'last_name', 'patronymic'], 'string', 'max' => 255],
+
+            ['avatar', 'image'],
+            ['delete_avatar', 'boolean'],
         ];
     }
 
@@ -62,6 +84,7 @@ class UserProfile extends ActiveRecord
             'fullName' => Yii::t('maddoger/user', 'Full name'),
             'avatar' => Yii::t('maddoger/user', 'Avatar'),
             'gender' => Yii::t('maddoger/user', 'Gender'),
+            'delete_avatar' => Yii::t('maddoger/user', 'Delete avatar'),
         ];
     }
 
