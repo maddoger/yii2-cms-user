@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model maddoger\user\common\models\ResetPasswordForm */
 
-$this->title = Yii::t('maddoger/admin', 'Reset password');
+$this->title = Yii::t('maddoger/user', 'Reset password');
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>

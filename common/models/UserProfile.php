@@ -15,16 +15,26 @@ use yii\db\ActiveRecord;
  * @property string $avatar
  * @property integer $gender
  *
+ * @property string $name @readonly
+ * @property string $fullName @readonly
+ *
  * @property User $user
  */
 class UserProfile extends ActiveRecord
 {
+    public $delete_avatar;
+
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
         return '{{%user_user_profile}}';
+    }
+
+    public function behaviors()
+    {
+        return [];
     }
 
     /**
@@ -48,6 +58,8 @@ class UserProfile extends ActiveRecord
             'first_name' => Yii::t('maddoger/user', 'First name'),
             'last_name' => Yii::t('maddoger/user', 'Last name'),
             'patronymic' => Yii::t('maddoger/user', 'Patronymic'),
+            'name' => Yii::t('maddoger/user', 'Name'),
+            'fullName' => Yii::t('maddoger/user', 'Full name'),
             'avatar' => Yii::t('maddoger/user', 'Avatar'),
             'gender' => Yii::t('maddoger/user', 'Gender'),
         ];
@@ -69,6 +81,19 @@ class UserProfile extends ActiveRecord
         $name = implode(' ', [
             $this->first_name,
             $this->last_name
+        ]);
+        return $name ?: null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullName()
+    {
+        $name = implode(' ', [
+            $this->last_name,
+            $this->first_name,
+            $this->patronymic,
         ]);
         return $name ?: null;
     }

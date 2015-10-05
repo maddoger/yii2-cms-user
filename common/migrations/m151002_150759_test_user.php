@@ -22,10 +22,21 @@ class m151002_150759_test_user extends Migration
             'first_name' => 'John',
             'last_name' => 'Doe',
         ]);
+
+        //Superuser role
+        $superuserRole = Yii::$app->authManager->createRole('superuser');
+        Yii::$app->authManager->add($superuserRole);
+        Yii::$app->authManager->assign($superuserRole, 1);
     }
 
     public function safeDown()
     {
+        $superuserRole = Yii::$app->authManager->getRole('superuser');
+        if ($superuserRole) {
+            Yii::$app->authManager->revoke($superuserRole, 1);
+            Yii::$app->authManager->remove($superuserRole);
+        }
+
         $this->delete('{{%user_user_profile}}', ['user_id' => 1]);
         $this->delete('{{%user_user}}', ['id' => 1]);
     }

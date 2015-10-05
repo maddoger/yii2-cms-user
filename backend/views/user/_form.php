@@ -1,0 +1,81 @@
+<?php
+
+use maddoger\user\common\models\User;
+use yii\bootstrap\ActiveForm;
+use yii\helpers\Html;
+
+/* @var $this yii\web\View */
+/* @var $model maddoger\core\models\MultiModel */
+/* @var $form yii\widgets\ActiveForm */
+/* @var $roles array */
+
+/** @var maddoger\user\common\models\User $userModel */
+$userModel = $model->getModel('user');
+/** @var maddoger\user\common\models\UserProfile $profileModel */
+$profileModel = $model->getModel('profile');
+
+?>
+
+<div class="user-form">
+
+    <?php $form = ActiveForm::begin(); ?>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="panel-title"><?= Yii::t('maddoger/user', 'Authentication') ?></div>
+                </div>
+                <div class="panel-body">
+                    <?= $form->field($userModel, 'username')->textInput(['maxlength' => 255, 'autocomplete' => 'off']) ?>
+                    <?= $form->field($userModel, 'email')->textInput(['maxlength' => 255, 'autocomplete' => 'off']) ?>
+                    <?= $form->field($userModel, 'password')->passwordInput(['maxlength' => 255, 'autocomplete' => 'off', 'value' => '']) ?>
+                </div>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="panel-title"><?= Yii::t('maddoger/user', 'Bio') ?></div>
+                </div>
+                <div class="panel-body">
+                    <?= $form->field($profileModel, 'last_name')->textInput(['maxlength' => 255]) ?>
+                    <?= $form->field($profileModel, 'first_name')->textInput(['maxlength' => 255]) ?>
+                    <?= $form->field($profileModel, 'patronymic')->textInput(['maxlength' => 255]) ?>
+                    <?= $form->field($profileModel, 'avatar', [
+                        'template' => '{label} <br />'.($profileModel->avatar ? Html::img($profileModel->avatar) : '').'{input} {hint} {error}',
+                    ])->fileInput() ?>
+                    <?= $form->field($profileModel, 'delete_avatar')->checkbox() ?>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    <div class="panel-title"><?= Yii::t('maddoger/user', 'Roles') ?></div>
+                </div>
+                <div class="panel-body">
+                    <?= $form->field($userModel, 'rbacRoles', ['template' => '{input}'])->checkboxList($roles) ?>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title"><?= Yii::t('maddoger/user', 'Status') ?></div>
+                </div>
+                <div class="panel-body">
+                    <?= $form->field($userModel, 'role')->dropDownList(User::getRoles()) ?>
+                    <?= $form->field($userModel, 'status')->dropDownList(User::getStatuses()) ?>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="btn-group">
+            <?= Html::submitButton(Yii::t('maddoger/user', 'Save'), ['class' => $userModel->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+            <?= Html::submitButton(Yii::t('maddoger/user', 'Save and exit'), ['name' => 'redirect', 'value' => 'exit', 'class' => 'btn btn-default']) ?>
+            <?= Html::submitButton(Yii::t('maddoger/user', 'Save and create new'), ['name' => 'redirect', 'value' => 'new', 'class' => 'btn btn-default']) ?>
+        </div>
+    </div>
+
+    <?php ActiveForm::end(); ?>
+
+</div>
