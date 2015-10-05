@@ -18,9 +18,27 @@ $profileModel = $model->getModel('profile');
 
 <div class="user-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+        'options' => ['enctype' => 'multipart/form-data']
+    ]); ?>
 
     <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="panel-title"><?= Yii::t('maddoger/user', 'Bio') ?></div>
+                </div>
+                <div class="panel-body">
+                    <?= $form->field($profileModel, 'last_name')->textInput(['maxlength' => 255]) ?>
+                    <?= $form->field($profileModel, 'first_name')->textInput(['maxlength' => 255]) ?>
+                    <?= $form->field($profileModel, 'patronymic')->textInput(['maxlength' => 255]) ?>
+                    <?= $form->field($profileModel, 'avatar', [
+                        'template' => '{label} <br />'.($profileModel->avatar ? Html::img($profileModel->avatar, ['width' => 150]) : '').'{input} {hint} {error}',
+                    ])->fileInput() ?>
+                    <?= $form->field($profileModel, 'delete_avatar')->checkbox() ?>
+                </div>
+            </div>
+        </div>
         <div class="col-md-6">
             <div class="panel panel-info">
                 <div class="panel-heading">
@@ -32,22 +50,6 @@ $profileModel = $model->getModel('profile');
                     <?= $form->field($userModel, 'password')->passwordInput(['maxlength' => 255, 'autocomplete' => 'off', 'value' => '']) ?>
                 </div>
             </div>
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <div class="panel-title"><?= Yii::t('maddoger/user', 'Bio') ?></div>
-                </div>
-                <div class="panel-body">
-                    <?= $form->field($profileModel, 'last_name')->textInput(['maxlength' => 255]) ?>
-                    <?= $form->field($profileModel, 'first_name')->textInput(['maxlength' => 255]) ?>
-                    <?= $form->field($profileModel, 'patronymic')->textInput(['maxlength' => 255]) ?>
-                    <?= $form->field($profileModel, 'avatar', [
-                        'template' => '{label} <br />'.($profileModel->avatar ? Html::img($profileModel->avatar) : '').'{input} {hint} {error}',
-                    ])->fileInput() ?>
-                    <?= $form->field($profileModel, 'delete_avatar')->checkbox() ?>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
             <div class="panel panel-warning">
                 <div class="panel-heading">
                     <div class="panel-title"><?= Yii::t('maddoger/user', 'Roles') ?></div>

@@ -8,6 +8,7 @@ use maddoger\user\common\models\User;
 use maddoger\user\common\models\UserProfile;
 use Yii;
 use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -42,7 +43,6 @@ class UserController extends Controller
                         'actions' => ['delete'],
                         'allow' => true,
                         'roles' => ['user.user.delete'],
-                        'verbs' => ['POST'],
                     ],
                     [
                         'actions' => ['profile'],
@@ -54,6 +54,16 @@ class UserController extends Controller
                         'allow' => true,
                         'roles' => ['superuser'],
                     ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'index' => ['get'],
+                    'view' => ['get'],
+                    'create' => ['get', 'post'],
+                    'update' => ['get', 'put', 'post'],
+                    'delete' => ['post', 'delete'],
                 ],
             ],
         ];
@@ -166,9 +176,14 @@ class UserController extends Controller
      */
     public function actionProfile()
     {
-        $id = Yii::$app->user->id;
-        $model = $this->findModel($id);
-        $model->scenario = 'profile';
+        /** @var User $user */
+        $user = Yii::$app->getUser()->getIdentity();
+        $model = new MultiModel([
+            'models' => [
+                'user' => $user,
+                'profile' => $user->profile,
+            ],
+        ]);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->addFlash('success', Yii::t('maddoger/user', 'Changes have been saved.'));

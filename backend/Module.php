@@ -8,10 +8,13 @@ use yii\rbac\Item;
 
 class Module extends BackendModule
 {
+    /**
+     * @var string
+     */
     public $controllerNamespace = 'maddoger\\user\\backend\\controllers';
 
     /**
-     * @var string layout for guests
+     * @var string layout for guests (using in sign in page)
      */
     public $guestLayout;
 
@@ -19,6 +22,16 @@ class Module extends BackendModule
      * @var string example: site\captcha
      */
     public $captchaAction;
+
+    /**
+     * @var string path for saving avatars
+     */
+    public $avatarsUploadPath = '@static/users/avatars';
+
+    /**
+     * @var string url to avatar's path
+     */
+    public $avatarsUploadUrl = '@staticUrl/users/avatars';
 
     /**
      * @inheritdoc
@@ -40,7 +53,7 @@ class Module extends BackendModule
             Yii::$app->i18n->translations['maddoger/user'] = [
                 'class' => 'yii\i18n\PhpMessageSource',
                 'sourceLanguage' => 'en-US',
-                'basePath' => '@maddoger/user/messages',
+                'basePath' => '@maddoger/user/common/messages',
             ];
         }
     }

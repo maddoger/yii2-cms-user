@@ -7,6 +7,7 @@ use maddoger\core\components\BackendModule;
 use Yii;
 use yii\data\ArrayDataProvider;
 use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\rbac\Item;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -45,6 +46,12 @@ class RoleController extends Controller
                         'allow' => true,
                         'roles' => ['superuser'],
                     ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['post', 'delete'],
                 ],
             ],
         ];
