@@ -2,7 +2,9 @@
 
 namespace maddoger\user\backend;
 
+use maddoger\core\behaviors\ConfigurationBehavior;
 use maddoger\core\components\BackendModule;
+use maddoger\core\models\DynamicModel;
 use Yii;
 use yii\rbac\Item;
 
@@ -47,6 +49,23 @@ class Module extends BackendModule
     /**
      * @inheritdoc
      */
+    public function behaviors()
+    {
+        return [
+            'configurationBehavior' => [
+                'class' => ConfigurationBehavior::className(),
+                'attributes' => [
+                    'avatarsUploadPath' => $this->avatarsUploadPath,
+                    'avatarsUploadUrl' => $this->avatarsUploadUrl,
+                    'sortNumber' => $this->sortNumber,
+                ],
+            ]
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function registerTranslations()
     {
         if (!isset(Yii::$app->i18n->translations['maddoger/user'])) {
@@ -72,6 +91,31 @@ class Module extends BackendModule
     public function getVersion()
     {
         return '1.0.0';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getConfigurationModel()
+    {
+        /** @var DynamicModel $model */
+        $model = parent::getConfigurationModel();
+
+        $model->defineAttribute('avatarsUploadPath', $this->avatarsUploadPath);
+        $model->defineAttribute('avatarsUploadUrl', $this->avatarsUploadUrl);
+
+        $model->addRule(['avatarsUploadPath', 'avatarsUploadUrl'], 'string');
+        $model->addRule(['avatarsUploadPath', 'avatarsUploadUrl', 'sortNumber'], 'default', ['value' => null]);
+
+        return $model;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function saveConfigurationModel($model)
+    {
+        return $this->saveConfiguration($model->getAttributes());
     }
 
     /**
