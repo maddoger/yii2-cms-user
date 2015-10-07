@@ -19,7 +19,7 @@
 return [
     'OAuth client' => '',
     'OAuth user id' => '',
-    'Delete avatar' => 'Удалить аватар',
+    'User type' => 'Тип пользователя',
     '"{itemName}" ... error ({error})' => '"{itemName}" ... ошибка ({error})',
     '"{itemName}" ... ok' => '"{itemName}" ... ok',
     'Active' => 'Активный',
@@ -40,6 +40,7 @@ return [
     'Created at' => 'Создан в',
     'Data' => 'Данные',
     'Delete' => 'Удалить',
+    'Delete avatar' => 'Удалить аватар',
     'Deleted' => 'Удалён',
     'Description' => 'Описание',
     'Email' => 'Email',

@@ -127,7 +127,7 @@ class User extends ActiveRecord implements IdentityInterface
             'password_hash' => Yii::t('maddoger/user', 'Password hash'),
             'password_reset_token' => Yii::t('maddoger/user', 'Password reset token'),
             'email' => Yii::t('maddoger/user', 'Email'),
-            'role' => Yii::t('maddoger/user', 'Role'),
+            'role' => Yii::t('maddoger/user', 'User type'),
             'status' => Yii::t('maddoger/user', 'Status'),
             'last_visit_at' => Yii::t('maddoger/user', 'Last visit at'),
             'created_at' => Yii::t('maddoger/user', 'Created at'),
@@ -136,7 +136,7 @@ class User extends ActiveRecord implements IdentityInterface
             'name' => Yii::t('maddoger/user', 'Name'),
             'avatar' => Yii::t('maddoger/user', 'Avatar'),
             'statusDescription' => Yii::t('maddoger/user', 'Status'),
-            'roleDescription' => Yii::t('maddoger/user', 'Role'),
+            'roleDescription' => Yii::t('maddoger/user', 'User type'),
             'rbacRoles' => Yii::t('maddoger/user', 'Roles'),
         ];
     }

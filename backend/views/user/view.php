@@ -47,7 +47,10 @@ if ($childRoles) {
                     //'profile.last_name',
                     //'profile.first_name',
                     //'profile.patronymic',
-                    'profile.avatar:image',
+                    [
+                        'attribute' => 'profile.avatar',
+                        'format' => ['image', ['width' => 200]],
+                    ],
                     'roleDescription',
                     [
                         'attribute' => 'statusDescription',
