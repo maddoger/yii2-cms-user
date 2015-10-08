@@ -155,7 +155,7 @@ class RoleController extends Controller
 
     public static function updateRoles($removeAll = false)
     {
-        $authManager = Yii::$app->authManager;
+        $authManager = Yii::$app->getAuthManager();
         $log = [];
         $hasError = false;
 
@@ -289,6 +289,8 @@ class RoleController extends Controller
                                 $childItem = $authManager->getPermission($child);
                                 if (!$childItem) {
                                     $childItem = $authManager->getRule($child);
+                                }if (!$childItem) {
+                                    $childItem = $authManager->getRole($child);
                                 }
                                 if (!$childItem) {
 

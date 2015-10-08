@@ -59,6 +59,17 @@ class Module extends BackendModule
                     'avatarsUploadUrl' => $this->avatarsUploadUrl,
                     'sortNumber' => $this->sortNumber,
                 ],
+                'saveToOwnerProperties' => true,
+                //Editing
+                'view' => $this->getViewPath() . DIRECTORY_SEPARATOR . 'configuration.php',
+                'roles' => ['user.configuration'],
+                'dynamicModel' => [
+                    'formName' => $this->id.'Configuration',
+                    'rules' => [
+                        [['avatarsUploadPath', 'avatarsUploadUrl'], 'string'],
+                        [['avatarsUploadPath', 'avatarsUploadUrl', 'sortNumber'], 'default', ['value' => null]],
+                    ],
+                ],
             ]
         ];
     }
@@ -91,31 +102,6 @@ class Module extends BackendModule
     public function getVersion()
     {
         return '1.0.0';
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getConfigurationModel()
-    {
-        /** @var DynamicModel $model */
-        $model = parent::getConfigurationModel();
-
-        $model->defineAttribute('avatarsUploadPath', $this->avatarsUploadPath);
-        $model->defineAttribute('avatarsUploadUrl', $this->avatarsUploadUrl);
-
-        $model->addRule(['avatarsUploadPath', 'avatarsUploadUrl'], 'string');
-        $model->addRule(['avatarsUploadPath', 'avatarsUploadUrl', 'sortNumber'], 'default', ['value' => null]);
-
-        return $model;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function saveConfigurationModel($model)
-    {
-        return $this->saveConfiguration($model->getAttributes());
     }
 
     /**
@@ -179,6 +165,22 @@ class Module extends BackendModule
                     'children' => [
                         'user.rbac.manageRoles',
                         'user.rbac.updateFromModules',
+                    ]
+                ],
+            //Configuration
+            'user.configuration' =>
+                [
+                    'type' => Item::TYPE_PERMISSION,
+                    'description' => Yii::t('maddoger/user', 'User. Configuring module'),
+                ],
+            'user.manager' =>
+                [
+                    'type' => Item::TYPE_ROLE,
+                    'description' => Yii::t('maddoger/user', 'User. Manager'),
+                    'children' => [
+                        'user.user.manager',
+                        'user.rbac.manager',
+                        'user.configuration',
                     ]
                 ],
         ];
