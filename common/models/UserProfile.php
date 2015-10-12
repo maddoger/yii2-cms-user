@@ -120,4 +120,12 @@ class UserProfile extends ActiveRecord
         ]));
         return $name ?: null;
     }
+
+    /**
+     * @return array
+     */
+    public static function getGenders()
+    {
+        return [0 => Yii::t('maddoger/user', 'Male'), 1 => Yii::t('maddoger/user', 'Female'),];
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use maddoger\user\common\models\User;
+use maddoger\user\common\models\UserProfile;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 
@@ -32,6 +33,8 @@ $profileModel = $model->getModel('profile');
                     <?= $form->field($profileModel, 'last_name')->textInput(['maxlength' => 255]) ?>
                     <?= $form->field($profileModel, 'first_name')->textInput(['maxlength' => 255]) ?>
                     <?= $form->field($profileModel, 'patronymic')->textInput(['maxlength' => 255]) ?>
+                    <?= $form->field($profileModel, 'gender')->dropDownList(UserProfile::getGenders(), ['prompt' => '']) ?>
+
                     <?= $form->field($profileModel, 'avatar', [
                         'template' => '{label} <br />'.($profileModel->avatar ? Html::img($profileModel->avatar, ['width' => 150]) : '').'{input} {hint} {error}',
                     ])->fileInput() ?>
