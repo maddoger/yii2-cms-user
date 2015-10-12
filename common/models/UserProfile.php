@@ -101,10 +101,10 @@ class UserProfile extends ActiveRecord
      */
     public function getName()
     {
-        $name = implode(' ', [
+        $name = implode(' ', array_filter([
             $this->first_name,
             $this->last_name
-        ]);
+        ]));
         return $name ?: null;
     }
 
@@ -113,11 +113,11 @@ class UserProfile extends ActiveRecord
      */
     public function getFullName()
     {
-        $name = implode(' ', [
+        $name = implode(' ', array_filter([
             $this->last_name,
             $this->first_name,
             $this->patronymic,
-        ]);
+        ]));
         return $name ?: null;
     }
 }

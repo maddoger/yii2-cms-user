@@ -6,6 +6,7 @@ use maddoger\core\behaviors\ConfigurationBehavior;
 use maddoger\core\components\BackendModule;
 use maddoger\core\models\DynamicModel;
 use Yii;
+use yii\helpers\Url;
 use yii\rbac\Item;
 
 class Module extends BackendModule
@@ -237,10 +238,28 @@ class Module extends BackendModule
             ],
             [
                 'class' => '\maddoger\core\search\ActiveSearchSource',
-                'modelClass' => '\maddoger\user\models\User',
+                'modelClass' => '\maddoger\user\common\models\User',
                 'searchAttributes' => ['username', 'email'],
                 'url' => ['/' . $this->id . '/user/view', 'id' => null],
                 'label' => 'username',
+                'labelPrefix' => Yii::t('maddoger/user', 'User - '),
+                'roles' => ['user.user.view'],
+            ],
+            [
+                'class' => '\maddoger\core\search\ActiveSearchSource',
+                'modelClass' => '\maddoger\user\common\models\UserProfile',
+                'searchAttributes' => ['first_name', 'last_name', 'patronymic'],
+                'url' => function($model) {
+                    return Url::to(['/' . $this->id . '/user/view', 'id' => $model['user_id']]);
+                 },
+                'label' => function($model) {
+                    $name = implode(' ', array_filter([
+                        $model['last_name'],
+                        $model['first_name'],
+                        $model['patronymic'],
+                    ]));
+                    return $name ?: null;
+                },
                 'labelPrefix' => Yii::t('maddoger/user', 'User - '),
                 'roles' => ['user.user.view'],
             ],
