@@ -11,7 +11,6 @@
     "require": {
         "yiisoft/yii2": "*",
         "yiisoft/yii2-bootstrap": "*",
-        "maddoger/yii2-select2": "*",
         "maddoger/yii2-filebehavior": "*"
     },
     "autoload": {
