@@ -17,10 +17,10 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'OAuth client' => '',
-    'OAuth user id' => '',
-    'User. Configuring module' => 'Пользователи. Настройка модуля',
-    'User. Manager' => 'Пользователи. Менеджер',
+    'Female' => 'Женский',
+    'Male' => 'Мужской',
+    'OAuth client' => 'OAuth клиент',
+    'OAuth user id' => 'OAuth id пользователя',
     '"{itemName}" ... error ({error})' => '"{itemName}" ... ошибка ({error})',
     '"{itemName}" ... ok' => '"{itemName}" ... ok',
     'Active' => 'Активный',
@@ -113,11 +113,13 @@ return [
     'User roles' => 'Роли пользователя',
     'User type' => 'Тип пользователя',
     'User. Access to dashboard' => 'Пользователи. Доступ к панели управления.',
+    'User. Configuring module' => 'Пользователи. Настройка модуля',
     'User. Create users' => 'Пользователи. Создание пользователей',
     'User. Create, update and delete user roles' => 'Пользователи. Создание, обновление, удаление ролей пользователей',
     'User. Delete users' => 'Пользователи. Удаление пользователей',
     'User. Manage user roles' => 'Пользователи. Управление ролями пользователей',
     'User. Manage users' => 'Пользователи. Управление пользователями',
+    'User. Manager' => 'Пользователи. Менеджер',
     'User. Update user roles from modules' => 'Пользователи. Обновление ролей пользоватей из модулей',
     'User. Update users' => 'Пользователи. Редактирование пользователей',
     'User. View users' => 'Пользователи. Просмотр пользователей',

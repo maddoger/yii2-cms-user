@@ -25,6 +25,7 @@ class m151002_150759_test_user extends Migration
 
         //Superuser role
         $superuserRole = Yii::$app->authManager->createRole('superuser');
+        $superuserRole->description = 'Superuser';
         Yii::$app->authManager->add($superuserRole);
         Yii::$app->authManager->assign($superuserRole, 1);
     }
