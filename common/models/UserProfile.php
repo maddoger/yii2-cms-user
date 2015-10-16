@@ -16,6 +16,7 @@ use yii\db\ActiveRecord;
  * @property string $patronymic
  * @property string $avatar
  * @property integer $gender
+ * @property string $language
  *
  * @property string $name @readonly
  * @property string $fullName @readonly
@@ -63,10 +64,12 @@ class UserProfile extends ActiveRecord
     {
         return [
             [['gender'], 'integer'],
-            [['first_name', 'last_name', 'patronymic'], 'string', 'max' => 255],
+            [['first_name', 'last_name', 'patronymic', 'language'], 'string', 'max' => 255],
 
             ['avatar', 'image'],
             ['delete_avatar', 'boolean'],
+
+            [['first_name', 'last_name', 'patronymic', 'language', 'avatar'], 'default', 'value' => null],
         ];
     }
 
@@ -84,6 +87,7 @@ class UserProfile extends ActiveRecord
             'fullName' => Yii::t('maddoger/user', 'Full name'),
             'avatar' => Yii::t('maddoger/user', 'Avatar'),
             'gender' => Yii::t('maddoger/user', 'Gender'),
+            'language' => Yii::t('maddoger/user', 'Language'),
             'delete_avatar' => Yii::t('maddoger/user', 'Delete avatar'),
         ];
     }

@@ -1,5 +1,6 @@
 <?php
 
+use maddoger\user\backend\Module;
 use maddoger\user\common\models\UserProfile;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
@@ -40,6 +41,14 @@ $profileModel = $model->getModel('profile');
                                 ['width' => 150]) : '') . '{input} {hint} {error}',
                     ])->fileInput() ?>
                     <?= $form->field($profileModel, 'delete_avatar')->checkbox() ?>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title"><?= Yii::t('maddoger/user', 'Settings') ?></div>
+                </div>
+                <div class="panel-body">
+                    <?= $form->field($profileModel, 'language')->dropDownList(Module::getInstance()->languagesList, ['prompt' => Yii::t('maddoger/user', 'Default')]) ?>
                 </div>
             </div>
 

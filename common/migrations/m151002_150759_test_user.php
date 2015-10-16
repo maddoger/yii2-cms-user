@@ -15,6 +15,7 @@ class m151002_150759_test_user extends Migration
             'auth_key' => Yii::$app->security->generateRandomString(32),
             'status' => User::STATUS_ACTIVE,
             'role' => User::ROLE_ADMIN,
+            'created_at' => time(),
         ]);
 
         $this->insert('{{%user_user_profile}}', [

@@ -34,7 +34,7 @@ class m151002_122958_user_init extends Migration
             'last_name' => $this->string(),
             'patronymic' => $this->string(),
             'avatar' => $this->string(),
-            'gender' => $this->smallInteger(1)
+            'gender' => $this->smallInteger(1),
         ], $tableOptions);
 
         $this->addForeignKey($this->db->tablePrefix.'user_user_profile_user_fk',

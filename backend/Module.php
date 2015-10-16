@@ -37,6 +37,11 @@ class Module extends BackendModule
     public $avatarsUploadUrl = '@staticUrl/users/avatars';
 
     /**
+     * @var array
+     */
+    public $languagesList = ['en-US' => 'English', 'ru-RU' => 'Русский'];
+
+    /**
      * @inheritdoc
      */
     public function init()
@@ -44,6 +49,15 @@ class Module extends BackendModule
         parent::init();
         if (Yii::$app->getUser()->getIsGuest() && $this->guestLayout !== null) {
             $this->layout = $this->guestLayout;
+        }
+
+        //Set user language to the app
+        if ($user = Yii::$app->getUser()->getIdentity()) {
+            /** @var $user \maddoger\user\common\models\User */
+            $language = $user->profile->language;
+            if ($language !== null && isset($this->languagesList[$language])) {
+                Yii::$app->language = $language;
+            }
         }
     }
 

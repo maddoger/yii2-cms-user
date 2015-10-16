@@ -17,10 +17,9 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Female' => 'Женский',
-    'Male' => 'Мужской',
-    'OAuth client' => 'OAuth клиент',
-    'OAuth user id' => 'OAuth id пользователя',
+    'Default' => 'По-умолчанию',
+    'Language' => 'Язык',
+    'Settings' => 'Настройки',
     '"{itemName}" ... error ({error})' => '"{itemName}" ... ошибка ({error})',
     '"{itemName}" ... ok' => '"{itemName}" ... ok',
     'Active' => 'Активный',
@@ -45,6 +44,7 @@ return [
     'Deleted' => 'Удалён',
     'Description' => 'Описание',
     'Email' => 'Email',
+    'Female' => 'Женский',
     'First name' => 'Имя',
     'Follow the link below to reset your password:
 {link}' => 'Для смены пароля проследуйте по ссылке:
@@ -59,9 +59,12 @@ return [
     'Last name' => 'Фамилия',
     'Last visit at' => 'Последнее посещение в',
     'Log' => 'Журнал',
+    'Male' => 'Мужской',
     'Name' => 'Имя',
     'New password' => 'Новый пароль',
     'New password was saved.' => 'Новый пароль сохранён.',
+    'OAuth client' => 'OAuth клиент',
+    'OAuth user id' => 'OAuth id пользователя',
     'Password' => 'Пароль',
     'Password hash' => 'Хэш пароля',
     'Password reset for {app}' => 'Сброс пароля для {app}',
