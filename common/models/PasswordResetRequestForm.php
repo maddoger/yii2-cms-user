@@ -8,6 +8,7 @@ namespace maddoger\user\common\models;
 
 use Yii;
 use yii\base\Model;
+use yii\helpers\Url;
 
 /**
  * Password reset request form
@@ -16,7 +17,6 @@ class PasswordResetRequestForm extends Model
 {
     public $email;
     public $code;
-
     public $captchaAction;
 
     /**
@@ -34,8 +34,10 @@ class PasswordResetRequestForm extends Model
                 'message' => Yii::t('maddoger/user', 'There is no user with such email.')
             ],
         ];
-        if ($this->captchaAction) {
-            $rules[] = ['code', 'captcha', 'captchaAction' => $this->captchaAction];
+        if ($this->captchaAction !== null) {
+            $rules[] = ['code', 'captcha', 'captchaAction' =>
+                is_array($this->captchaAction) ? $this->captchaAction[0] : $this->captchaAction
+            ];
         }
 
         return $rules;

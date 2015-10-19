@@ -11,11 +11,6 @@ use yii\rbac\Item;
 class Module extends BackendModule
 {
     /**
-     * @var string
-     */
-    public $controllerNamespace = 'maddoger\\user\\backend\\controllers';
-
-    /**
      * @var string layout for guests (using in sign in page)
      */
     public $guestLayout;
@@ -46,7 +41,7 @@ class Module extends BackendModule
     public function init()
     {
         parent::init();
-        if (Yii::$app->getUser()->getIsGuest() && $this->guestLayout !== null) {
+        if ($this->guestLayout !== null && Yii::$app->getUser()->getIsGuest()) {
             $this->layout = $this->guestLayout;
         }
 

@@ -26,9 +26,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php
     //When captcha action is set
     if ($model->isAttributeSafe('code')) {
-        $form->field($model, 'code')->widget(Captcha::className(), [
-            'action' => $model->captchaAction,
+        echo $form->field($model, 'code')->widget(Captcha::className(), [
+            'captchaAction' => $model->captchaAction,
             'template' => '<div class="row"><div class="col-lg-5">{image}</div><div class="col-lg-7">{input}</div></div>',
+            'imageOptions' => [
+                'class' => 'img-responsive',
+            ],
             'options' => [
                 'placeholder' => $model->getAttributeLabel('code'),
                 'class' => 'form-control',
