@@ -198,7 +198,7 @@ class Module extends BackendModule
     /**
      * @inheritdoc
      */
-    public function getNavigation()
+    public function getDefaultNavigation()
     {
         return [
             [
