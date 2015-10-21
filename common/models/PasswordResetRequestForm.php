@@ -19,6 +19,9 @@ class PasswordResetRequestForm extends Model
     public $code;
     public $captchaAction;
 
+    public $resetUrl = ['user/auth/reset-password'];
+    public $mailView = 'passwordResetToken';
+
     /**
      * @inheritdoc
      */
@@ -73,7 +76,9 @@ class PasswordResetRequestForm extends Model
             }
 
             if ($user->save()) {
-                return Yii::$app->mailer->compose('@maddoger/user/common/mail/passwordResetToken', ['user' => $user])
+                $resetUrl = $this->resetUrl;
+                $resetUrl['token'] = $user->password_reset_token;
+                return Yii::$app->mailer->compose($this->mailView, ['user' => $user, 'resetUrl' => $resetUrl])
                     ->setTo($this->email)
                     ->setSubject(Yii::t('maddoger/user', 'Password reset for {app}', ['app' => \Yii::$app->name]))
                     ->send();
