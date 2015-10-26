@@ -124,6 +124,7 @@ class User extends ActiveRecord implements IdentityInterface
             'auth_key' => Yii::t('maddoger/user', 'Auth key'),
             'oauth_client' => Yii::t('maddoger/user', 'OAuth client'),
             'oauth_client_user_id' => Yii::t('maddoger/user', 'OAuth user id'),
+            'password' => Yii::t('maddoger/user', 'Password'),
             'password_hash' => Yii::t('maddoger/user', 'Password hash'),
             'password_reset_token' => Yii::t('maddoger/user', 'Password reset token'),
             'email' => Yii::t('maddoger/user', 'Email'),
