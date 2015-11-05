@@ -373,17 +373,12 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findByUsernameOrEmail($username, $checkStatus = true)
     {
-        return static::findOne(
-            $checkStatus ?
-            [
-                'and',
-                ['or', 'username' => $username, 'email' => $username],
-                'status' => self::STATUS_ACTIVE
-            ] :
-            [
-                ['or', 'username' => $username, 'email' => $username],
-            ]
-        );
+        $query = static::find();
+        $query->where(['or', ['username' => $username], ['email' => $username]]);
+        if ($checkStatus) {
+            $query->andWhere(['status' => self::STATUS_ACTIVE]);
+        }
+        return $query->limit(1)->one();
     }
 
     /**
