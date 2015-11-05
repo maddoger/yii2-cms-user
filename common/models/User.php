@@ -159,7 +159,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function afterSave($insert, $changedAttributes)
     {
         //RBAC Roles
-        if ($this->isAttributeSafe('rbacRoles')) {
+        if ($this->isAttributeSafe('rbacRoles') && $this->_rbacRoles !== null) {
 
             if (!$insert) {
                 Yii::$app->authManager->revokeAll($this->id);
