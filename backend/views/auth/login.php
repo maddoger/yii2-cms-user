@@ -28,7 +28,7 @@ $this->title = Yii::$app->name;
         [
             'parts' => ['{feedback}' => '<span class="glyphicon glyphicon-lock form-control-feedback"></span>'],
         ]
-    )->passwordInput(['placeholder' => $model->getAttributeLabel('password')]); ?>
+    )->passwordInput(['placeholder' => $model->getAttributeLabel('password'), 'value' => '']); ?>
 
     <div class="row">
         <div class="col-xs-8">

@@ -125,6 +125,7 @@ class UserController extends Controller
                 'profile' => new UserProfile(),
             ],
         ]);
+        $model->getModel('user')->setScenario('backend');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->getModel('user')->id]);
@@ -151,6 +152,7 @@ class UserController extends Controller
                 'profile' => $user->profile,
             ],
         ]);
+        $model->getModel('user')->setScenario('backend');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             switch (Yii::$app->request->post('redirect')) {

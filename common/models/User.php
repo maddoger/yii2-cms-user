@@ -109,7 +109,8 @@ class User extends ActiveRecord implements IdentityInterface
             //Create
             [['username', 'email', 'password_hash'], 'required', 'on' => 'create'],
 
-            [['rbacRoles'], 'safe'],
+            //Only in backend
+            [['rbacRoles'], 'safe', 'on' => 'backend'],
         ];
     }
 
